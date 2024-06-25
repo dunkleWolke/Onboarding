@@ -1,6 +1,7 @@
 package com.example.onboard.ui.theme
 
-
+import com.example.onboard.ui.theme.SkipBubbles
+import com.example.onboard.ui.theme.NextButton
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -80,82 +81,4 @@ fun OnboardingScreen1(
 
 
 
-@Composable
-fun SkipBubbles(
-    onSkip: () -> Unit,
-    onNext: () -> Unit,
-    currentPage: Int,
-    totalPages: Int
-) {
-    Column(
-        modifier = Modifier.padding(start = 24.dp)
-    ) {
-        Box(
-            modifier = Modifier.padding(start = 4.dp)
-        ) {
-            Row {
-                repeat(totalPages) { index ->
-                    Box(
-                        modifier = Modifier
-                            .size(height = 14.dp, width = 14.dp)
-                            .clip(CircleShape)
-                            .background(
-                                color = if (index == currentPage) Pink40 else Pink40.copy(alpha = 0.2f)
-                            )
-                    )
-                }
-            }
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                TextButton(
-                    onClick = onSkip
-                ) {
-                    Text("Skip", style = MaterialTheme.typography.bodyLarge, color = Pink40)
-                }
-                Spacer(modifier = Modifier.width(16.dp))
-                NextButton(onClick = onNext, currentPage = 1, totalPages = 4)
-            }
-        }
-    }
-}
-
-@Composable
-fun NextButton(
-    onClick: () -> Unit,
-    currentPage: Int,
-    totalPages: Int
-) {
-    val progress = remember { mutableStateOf((currentPage.toFloat() / totalPages.toFloat())) }
-
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(end = 16.dp),
-        contentAlignment = Alignment.CenterEnd,
-    ) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .size(64.dp)
-                .clip(CircleShape)
-                .background(Color.White, CircleShape)
-                .border(width = 1.dp, color = White, shape = CircleShape)
-        ) {
-            CircularProgressIndicator(
-                progress = progress.value,
-                strokeWidth = 8.dp,
-                modifier = Modifier.size(64.dp),
-                color = Pink40
-            )
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                contentDescription = "Next",
-                modifier = Modifier
-                    .size(28.dp),
-                tint = Pink40
-            )
-        }
-    }
-}
 
