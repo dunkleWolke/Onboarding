@@ -3,6 +3,7 @@ package com.example.onboard.ui.theme
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
@@ -52,7 +53,7 @@ fun SkipBubbles(
                     Text("Skip", style = MaterialTheme.typography.bodyLarge, color = Pink40)
                 }
                 Spacer(modifier = Modifier.width(16.dp))
-                NextButton(onClick = onNext, currentPage = currentPage, totalPages = 4)
+                NextButton(onClick = onNext, currentPage = currentPage + 1, totalPages = 4)
             }
         }
     }
@@ -64,7 +65,7 @@ fun NextButton(
     currentPage: Int,
     totalPages: Int
 ) {
-    val progress = remember { mutableStateOf((currentPage.toFloat() / totalPages.toFloat())) }
+    val progress = remember { mutableStateOf(((currentPage.toFloat() / totalPages.toFloat()) )) }
 
     Box(
         modifier = Modifier
@@ -79,6 +80,7 @@ fun NextButton(
                 .clip(CircleShape)
                 .background(Color.White, CircleShape)
                 .border(width = 1.dp, color = White, shape = CircleShape)
+                .clickable { onClick() }
         ) {
             CircularProgressIndicator(
                 progress = progress.value,
